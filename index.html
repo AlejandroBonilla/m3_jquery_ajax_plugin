@@ -12,17 +12,17 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+    <div class="ml-auto pr-5">
+      <div class="form-group d-flex align-items-end">
+        <input type="text" class="form-control" name="" id="input_busqueda" aria-describedby="helpId" placeholder="Ingrese id personaje ej:1">
+        <button type="button" name="" id="buscar" class="btn btn-primary mt-2 mx-2" btn-lg btn-block">Buscar</button>
+        <button type="button" name="" id="limpiar" class="btn btn-info mt-2" btn-lg btn-block">Limpiar</button>
+      </div>
+    </div>
   </nav>
 
   <div class="container">
     <div class="row">
-      <div class="col-md-3">
-        <div class="form-group">
-          <input type="text" class="form-control" name="" id="input_busqueda" aria-describedby="helpId" placeholder="Ingrese id personaje ej:1">
-          <button type="button" name="" id="buscar" class="btn btn-primary mt-2" btn-lg btn-block">Buscar</button>
-          <button type="button" name="" id="limpiar" class="btn btn-info mt-2" btn-lg btn-block">Limpiar</button>
-        </div>
-      </div>
       <div id="grafico" class="col-md-9" style="height: 200px;"></div>
     </div>
     <div id="card" class="row justify-content-around"></div>
