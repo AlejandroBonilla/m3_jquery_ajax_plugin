@@ -1,4 +1,7 @@
+var personajes_agregados_arr =[]
 $(function () {
+  var numero_episodios = 0;
+  init();
   $("#buscar").click(e=>{
     buscarPersonaje();
   });
@@ -23,6 +26,7 @@ function getPersonaje(id){
       console.log("data=>", data);
       //imprimir data
       $("#card").append(generarCard(data));
+      generarGrafico(data);
     }
   });
 }
@@ -68,4 +72,52 @@ function buscarPersonaje(){
 function limpiar(){
   $("#card").empty();
   $("#input_busqueda").focus();
+}
+
+function getAllEpisodes(){
+  $.ajax({
+    type: "GET",
+    url: "https://rickandmortyapi.com/api/episode/",
+    success: function (episodios) {
+      numero_episodios = episodios.info.count;
+    }
+  });
+}
+
+function init(){
+  getAllEpisodes();
+  //otra metodo al partir el documento
+}
+
+function generarGrafico(personaje){
+  addPersonajeList(personaje);
+  var options = {
+    title: {
+      text: `Participación en episodios total(${numero_episodios})`              
+    },
+    axisY:{
+      maximum: numero_episodios,
+      interval: 5,
+    },
+    data: [              
+    {
+      // Change type to "doughnut", "line", "splineArea", etc.
+      type: "column",
+      dataPoints: [
+        ...personajes_agregados_arr,
+      ]
+    }
+    ]
+  };
+  
+  $("#grafico").CanvasJSChart(options);
+}
+
+function addPersonajeList(personaje){
+  var new_personaje = {
+    id: personaje.id,
+    label: personaje.name,
+    y: personaje.episode.length,
+  }
+  personajes_agregados_arr.push(new_personaje);
 }
