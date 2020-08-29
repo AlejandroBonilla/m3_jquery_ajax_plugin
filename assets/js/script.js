@@ -33,9 +33,9 @@ function getPersonaje(id){
 
 function generarCard(personaje){
   var card = `
-  <div class="col-sm-12 col-md-4">
+  <div class="col-sm-12 col-md-3">
     <div class="card" style="width:100%;">
-      <img src="${personaje.image}" class="card-img-top img-fluid" alt="...">
+      <img src="${personaje.image}"  class="card-img-top img-fluid" alt="...">
       <div class="card-body">
         <h5 class="card-title">${personaje.name}</h5>
         <div>Status : ${personaje.status}</div>
@@ -49,13 +49,26 @@ function generarCard(personaje){
 
 function validacion(id){
   var expresion = /^\d{1,3}$/;
-  
+
   if(!expresion.test(id)){
     alert("Input invalido");
     $("input_busqueda").focus();
     return false
   }
+  else if(!check_nueva_id(id)){
+    alert(`Personaje ya ingresado`);
+    return false;
+  }
 
+  return true;
+}
+
+function check_nueva_id(id){
+  //si encuentro alguna id igual a la nueva , returno que no es una nueva id con un false
+  if(personajes_agregados_arr.some(personaje => personaje.id == id)){
+    return false;
+  }
+  //si llego hasta aca es por que es una id nueva y retorno true. 
   return true;
 }
 
