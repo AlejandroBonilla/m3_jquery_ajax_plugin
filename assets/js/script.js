@@ -26,7 +26,8 @@ function getPersonaje(id){
       console.log("data=>", data);
       //imprimir data
       $("#card").append(generarCard(data));
-      generarGrafico(data);
+      addPersonajeList(data);
+      generarGrafico();
     }
   });
 }
@@ -85,6 +86,14 @@ function buscarPersonaje(){
 function limpiar(){
   $("#card").empty();
   $("#input_busqueda").focus();
+
+  cleanPersojesAgregados();
+  
+}
+
+function cleanPersojesAgregados(){
+  personajes_agregados_arr = []
+  generarGrafico();
 }
 
 function getAllEpisodes(){
@@ -102,8 +111,8 @@ function init(){
   //otra metodo al partir el documento
 }
 
-function generarGrafico(personaje){
-  addPersonajeList(personaje);
+function generarGrafico(){
+ 
   var options = {
     title: {
       text: `Participación en episodios total(${numero_episodios})`              
