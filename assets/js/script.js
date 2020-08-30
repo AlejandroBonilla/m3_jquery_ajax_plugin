@@ -1,6 +1,7 @@
-var personajes_agregados_arr =[]
+var personajes_agregados_arr =[];
+var numero_episodios = 0;
 $(function () {
-  var numero_episodios = 0;
+  
   init();
   $("#buscar").click(e=>{
     buscarPersonaje();
@@ -28,6 +29,7 @@ function getPersonaje(id){
       $("#card").append(generarCard(data));
       addPersonajeList(data);
       generarGrafico();
+      update_contador();
     }
   });
 }
@@ -88,6 +90,7 @@ function limpiar(){
   $("#input_busqueda").focus();
 
   cleanPersojesAgregados();
+  update_contador();
   
 }
 
@@ -109,6 +112,8 @@ function getAllEpisodes(){
 function init(){
   getAllEpisodes();
   //otra metodo al partir el documento
+  generarGrafico();
+  update_contador();
 }
 
 function generarGrafico(){
@@ -142,4 +147,8 @@ function addPersonajeList(personaje){
     y: personaje.episode.length,
   }
   personajes_agregados_arr.push(new_personaje);
+}
+
+function update_contador(){
+  $("#contador").html(personajes_agregados_arr.length);
 }

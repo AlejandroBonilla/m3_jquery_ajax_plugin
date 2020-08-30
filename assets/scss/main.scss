@@ -14,3 +14,6 @@ sass --watch assets/scss/main.scss:assets/css/style.css
 @import "vendor/bootstrap4.5/bootstrap";
 //base
 @import "base/reset";
+
+//pages
+@import "pages/index";
