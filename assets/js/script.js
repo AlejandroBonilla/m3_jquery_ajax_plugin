@@ -24,12 +24,22 @@ function getPersonaje(id){
     type: "GET",
     url: `https://rickandmortyapi.com/api/character/${id}`,
     success: function (data) {
-      console.log("data=>", data);
+      console.log("data=>",typeof data,data.length,data);
       //imprimir data
-      $("#card").append(generarCard(data));
-      addPersonajeList(data);
-      generarGrafico();
-      update_contador();
+      if(data.length >= 1){
+        data.forEach(personaje => {
+          $("#card").append(generarCard(personaje));
+          addPersonajeList(personaje);
+          generarGrafico();
+          update_contador();
+        });
+      }
+      else{
+        $("#card").append(generarCard(data));
+        addPersonajeList(data);
+        generarGrafico();
+        update_contador();
+      }
     }
   });
 }
@@ -51,7 +61,7 @@ function generarCard(personaje){
 }
 
 function validacion(id){
-  var expresion = /^\d{1,3}$/;
+  var expresion = /^(\d[,]?)+$/;
 
   if(!expresion.test(id)){
     alert("Input invalido");
@@ -59,7 +69,6 @@ function validacion(id){
     return false
   }
   else if(!check_nueva_id(id)){
-    alert(`Personaje ya ingresado`);
     return false;
   }
 
@@ -68,11 +77,17 @@ function validacion(id){
 
 function check_nueva_id(id){
   //si encuentro alguna id igual a la nueva , returno que no es una nueva id con un false
-  if(personajes_agregados_arr.some(personaje => personaje.id == id)){
-    return false;
-  }
-  //si llego hasta aca es por que es una id nueva y retorno true. 
-  return true;
+  var new_id = id.split(",");
+  console.log(new_id);
+  var check = true;
+  new_id.forEach(id=>{
+    if(personajes_agregados_arr.some(personaje => personaje.id == id)){
+      alert(`Personaje ya ingresado id:${id}`);
+      check = false;
+    }
+  })
+  return check;
+  
 }
 
 function buscarPersonaje(){
